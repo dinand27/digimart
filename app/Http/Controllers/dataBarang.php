@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Produk;
 use Illuminate\Http\Request;
 
 class dataBarang extends Controller
@@ -10,6 +11,13 @@ class dataBarang extends Controller
     {
         return view('produk.tampil',[
             'title' => 'Halaman Produk',
+        ]);
+    }
+
+    function produktampil(){
+        $produk= Produk::all();
+        return response()->json([
+            'produk' => $produk
         ]);
     }
 

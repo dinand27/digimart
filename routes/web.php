@@ -8,6 +8,7 @@ Route::get('/', function () {
 });
 
 Route::get('/produk', [dataBarang::class,'tampil'])->name('produk.tampil');
-
+Route::get('/produk-tampil', [dataBarang::class,'produktampil']);
 Route::get('/produk/tambah', [dataBarang::class,'tambah'])->name('produk.tambah');
+
 

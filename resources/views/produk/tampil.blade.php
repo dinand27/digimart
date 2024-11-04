@@ -28,7 +28,7 @@
         </tr>
     </tbody>
 </table>
-  
+
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -68,9 +68,11 @@
                 <div>
                     <input type="submit" class="btn btn-primary" name="" id="save">
                 </div>
-
-                    
             </form>
+            <span id="output">
+
+            </span>
+          
         </div>
       </div>
     </div>
@@ -87,7 +89,26 @@ $(document).ready(function() {
     $("#MyModal").modal();
   });
 
-</script>
 
+</script>
+<script>
+$(document).ready(function() {
+    getdata();
+
+function getdata()
+{
+    $.ajax({
+        type: "GET",
+        url: "/produk-tampil",
+        dataType: "json",
+        success: function(response){
+            console.log(response.produk);
+        }
+    });
+}
+})
+ 
+
+</script>
 
 @endsection
