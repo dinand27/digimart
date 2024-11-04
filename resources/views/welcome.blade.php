@@ -1,33 +1,125 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{{ asset('bstrap/css/bootstrap.css') }}">
-    <title>DIGIMART</title>
-</head>
-<body>
-<div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <img src="{{ asset('img/Honda.webp') }}" width="50" height="50" class="d-inline-block align-top" alt="">
-        <a class="navbar-brand" href="#">DIGIMART</a>
-        
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url('/produk') }}">Produk</a>
-            </li>
-            </li>
-          </ul>
+@extends('layout')
+
+@section('content')
+
+<h4 class="text-center">LIST PRODUK</h4>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    Add
+  </button>
+<table id="myTable" class="display">
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>NamaProduk</th>
+            <th>Kategori</th>
+            <th>HargaSatuan</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>HONDA CB150</td>
+            <td>MOTOR</td>
+            <td>29.000.000</td>
+            <td>
+                <button class="btn btn-primary">Detail</button>
+                <button class="btn btn-danger">Hapus</button>
+            </td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>HONDA ADV160</td>
+            <td>MOTOR MATIC</td>
+            <td>35.000.000</td>
+            <td>
+                <button class="btn btn-primary">Detail</button>
+                <button class="btn btn-danger">Hapus</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Tambah Produk</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-      </nav>
-</div>
-</body>
-</html>
+        <div class="modal-body">
+        {{-- isi --}}
+
+<div class="container-fluid">
+    <div class="card" style="width:auto;">
+        <div class="card-body">
+            <form id="myForm" action="" enctype="multipart/form-data">  
+                <div class="form-group">
+                    <label for="barcode" class="form-label">Barcode</label>
+                    <input class="form-control" type="text" name="barcode">
+                </div>
+                <div class="form-group">
+                    <label for="namaproduk" class="form-label">Nama Produk</label>
+                    <input class="form-control" type="text" name="namaproduk" id="namaproduk">
+                </div>
+                <div class="form-group">
+                    <label for="kategori" class="form-label">Kategori</label>
+                    <input class="form-control" type="text" name="kategori" id="kategori">
+                </div>
+                <div class="form-group">
+                    <label for="hargabarang" class="form-label">Harga</label>
+                    <input class="form-control" type="number" name="hargabarang" id="hargabarang">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="file" name="image" accept="image/*" id="image" onchange="readURL(this)">
+                </div>
+                <div>
+                    <input type="submit" class="btn btn-primary" name="" id="save">
+                </div>
+            </form>
+            <span id="output">
+
+            </span>
+          
+        </div>
+      </div>
+    </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<script>
+    $(document).ready( function () {
+    $('#myTable').DataTable();
+} );
+
+$(document).ready(function() {
+    $("#MyModal").modal();
+  });
+
+
+</script>
+<script>
+$(document).ready(function() {
+    getdata();
+
+function getdata()
+{
+    $.ajax({
+        type: "GET",
+        url: "/produk-tampil",
+        dataType: "json",
+        success: function(response){
+            console.log(response.produk);
+        }
+    });
+}
+})
+ 
+
+</script>
+
+@endsection
